@@ -1,0 +1,30 @@
+@import url(math.css);
+
+#editor {
+ height: 200px;
+ width: 400px; 
+ background-color: rgb(228, 228, 228);
+ padding: 20px;
+}
+
+.something {
+  color:red
+}
+
+@font-face {
+  /* CSS内で利用するフォント名（任意） */
+  font-family: 'STIX Two Math Symbol';
+  /* サーバー上のフォントファイルへのパスを指定 */
+  src: url('/fonts/STIXTwoText-Regular.woff2') format('woff2');
+  /* 必要に応じて他のフォント形式も追加 */
+  /* src: url('/fonts/STIXTwoMath-Regular.woff') format('woff'); */
+  
+  /* ウェイトとスタイルは通常の値でOK */
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 数学記号を表示したい要素用のクラス */
+.math-only {
+  font-family: 'STIX Two Math Symbol', serif;
+}
