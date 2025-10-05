@@ -151,8 +151,13 @@ export const commands: Command[] = [
     { type: 'endsWith', pattern: '\\cup', build: () => createTextElmMap('∪') },
 
     // ギリシャ文字
-    { type: 'endsWith', pattern: '\\alpha', build: () => createTextElmMap('α') },
     { type: 'endsWith', pattern: '\\pi', build: () => createTextElmMap('π') },
+    { type: 'endsWith', pattern: '\\alpha', build: () => createTextElmMap('α') },
+    { type: 'endsWith', pattern: '\\a', build: () => createTextElmMap('α') },
+    { type: 'endsWith', pattern: '\\beta', build: () => createTextElmMap('β') },
+    { type: 'endsWith', pattern: '\\b', build: () => createTextElmMap('β') },
+    { type: 'endsWith', pattern: '\\gamma', build: () => createTextElmMap('γ') },
+    { type: 'endsWith', pattern: '\\c', build: () => createTextElmMap('γ') },
     { type: 'endsWith', pattern: '\\theta', build: () => createTextElmMap('θ') },
     { type: 'endsWith', pattern: '\\t', build: () => createTextElmMap('θ') },
 

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Notex 数学ノートエディタ ユーザーガイド</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1, h2 { border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        h1 { color: #333; }
+        h2 { color: #555; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f7f7f7; }
+        code { background-color: #eee; padding: 2px 4px; border-radius: 3px; font-family: monospace; }
+        .command-list table { font-size: 0.9em; }
+        .command-list td:nth-child(2) { font-family: monospace; }
+        .math-symbol { font-family: 'STIX Two Math Symbol', serif; font-size: 1.2em; }
+        .note { border-left: 5px solid #007bff; background-color: #f0f8ff; padding: 10px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <h1 id="top">Notex 数学ノートエディタ ユーザーガイド</h1>
+
+    <!-- 目次 -->
+    <h2>目次</h2>
+    <ol>
+        <li><a href="#section-1">基本的な入力と操作</a></li>
+        <li><a href="#section-2">構造化コマンド（ブロック要素）</a>
+            <ul>
+                <li><a href="#section-2-1">分数 (Fraction)</a></li>
+                <li><a href="#section-2-2">積分 (Integral)</a></li>
+                <li><a href="#section-2-3">総和 (Sigma)</a></li>
+                <li><a href="#section-2-4">N乗根 (Sqrt)</a></li>
+                <li><a href="#section-2-5">行列 (Matrix)</a></li>
+            </ul>
+        </li>
+        <li><a href="#section-3">インライン記号コマンド</a></li>
+        <li><a href="#section-4">その他のショートカット</a></li>
+    </ol>
+
+    <!-- 1. 基本的な入力と操作 -->
+    <h2 id="section-1">1. 基本的な入力と操作</h2>
+
+    <ul>
+        <li><strong>入力開始:</strong> エディタ内で直接文字を入力してください。</li>
+        <li><strong>改行（次の行へ）:</strong> <code>Enter</code> キーを押すと、現在のブロック（段落）を終了し、新しく編集可能なブロックを作成します。</li>
+    </ul>
+
+    <div class="note">
+        <p><strong>⚠️ マイナス記号の自動修正:</strong></p>
+        <p>数式要素（分数、積分など）の編集可能なフィールド内で <code>-</code> (ハイフン) を入力すると、自動的に見た目の長い数学的なマイナス記号 <code>−</code> (U+2212) に変換されます。</p>
+    </div>
+
+    <!-- 2. 構造化コマンド -->
+    <h2 id="section-2">2. 構造化コマンド（ブロック要素）</h2>
+
+    <p>数式を構造化された要素（枠や記号）として挿入します。コマンドを入力後、<strong>スペースキー</strong>を押すと変換されます。</p>
+
+    <h3 id="section-2-1">2.1. 分数 (Fraction)</h3>
+    <p>分数コマンドは、入力パターンに応じて自動で検出し、分数構造に変換します。</p>
+    <table>
+        <thead>
+            <tr>
+                <th>入力例</th>
+                <th>コマンドタイプ</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>3/</code> + <code>[Space]</code></td>
+                <td>EndsWith</td>
+                <td>スラッシュ単体で、空の分数枠 <code>□/□</code> を生成します。</td>
+            </tr>
+            <tr>
+                <td><code>x/y</code> + <code>[Space]</code></td>
+                <td>Regexp</td>
+                <td>シンプルな英数字の分数を生成します。</td>
+            </tr>
+            <tr>
+                <td><code>(x+1)/(y-2)</code> + <code>[Space]</code></td>
+                <td>Regexp</td>
+                <td>括弧を含む複雑な分数を生成します。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 id="section-2-2">2.2. 積分 (Integral)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>コマンド</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>\int</code> + <code>[Space]</code></td>
+                <td>積分記号 (<span class="math-symbol">∫</span>) の構造を挿入します。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 id="section-2-3">2.3. 総和 (Sigma)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>コマンド</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>\sigma</code> + <code>[Space]</code></td>
+                <td>総和記号 (<span class="math-symbol">∑</span>) の構造を挿入します。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 id="section-2-4">2.4. 平方根 (Sqrt)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>コマンド</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>\sqrt</code> + <code>[Space]</code></td>
+                <td>平方根 (<span class="math-symbol">√</span>) の構造を挿入します。（中身が編集可能です。）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 id="section-2-5">2.5. 行列 (Matrix)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>コマンド</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>\mat</code> + <code>[Space]</code></td>
+                <td>2x2の行列構造を挿入します。（各セルが編集可能です。）</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2 id="section-4">3. その他のショートカット</h2>
+    <p>構造化要素内での作業効率を上げるための特殊なキー操作です。</p>
+
+    <table class="command-list">
+        <thead>
+            <tr>
+                <th>キー操作</th>
+                <th>動作</th>
+                <th>適用範囲</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>Alt + [数字キー]</code>(1,2,3,0)</td>
+                <td>見出し１～３を作成。（０の時は本文）</td>
+                <td>現在編集中の行が見出し、または本文になります。デフォルトは本文です。</td>
+            </tr>
+            <tr>
+                <td><code>Enter</code> (シフトなし)</td>
+                <td>現在編集中の構造化要素から脱出し、次の行に新しい入力ブロックを作成します。</td>
+                <td>分数、積分、シグマ、行列などの構造化要素内</td>
+            </tr>
+            <tr>
+                <td><code>Shift + Enter</code> (シフトあり)</td>
+                <td>現在の段落のまま次の行に新しい入力ブロックを作成します。</td>
+                <td>現在のデザインのままで続行したいときに利用します。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="section-3">4. インライン記号コマンド</h2>
+
+    <p>これらのコマンドを入力後、<strong>スペースキー</strong>を押すと、対応する数学記号に置換されます。</p>
+
+    <table class="command-list">
+        <thead>
+            <tr>
+                <th>コマンド</th>
+                <th>記号</th>
+                <th>意味</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>\alpha または \a</code></td><td><span class="math-symbol">α</span></td><td>アルファ</td></tr>
+            <tr><td><code>\beta または \b</code></td><td><span class="math-symbol">β</span></td><td>ベータ</td></tr>
+            <tr><td><code>\gammma または \c</code></td><td><span class="math-symbol">γ</span></td><td>ガンマ</td></tr>
+            <tr><td><code>\theta または \t</code></td><td><span class="math-symbol">θ</span></td><td>シータ</td></tr>
+            <tr><td><code>\pi</code></td><td><span class="math-symbol">π</span></td><td>パイ</td></tr>
+            <tr><td><code>\pm</code></td><td><span class="math-symbol">±</span></td><td>プラスマイナス</td></tr>
+            <tr><td><code>\inf</code></td><td><span class="math-symbol">∞</span></td><td>無限</td></tr>
+            <tr><td><code>\imp</code></td><td><span class="math-symbol">⇒</span></td><td>ならば (含意)</td></tr>
+            <tr><td><code>\iff</code></td><td><span class="math-symbol">⟺</span></td><td>同値</td></tr>
+            <tr><td><code>\in</code></td><td><span class="math-symbol">∈</span></td><td>要素として含む</td></tr>
+            <tr><td><code>\notin</code></td><td><span class="math-symbol">∉</span></td><td>要素として含まない</td></tr>
+            <tr><td><code>\sub</code></td><td><span class="math-symbol">⊂</span></td><td>部分集合</td></tr>
+            <tr><td><code>\cap</code></td><td><span class="math-symbol">∩</span></td><td>共通部分</td></tr>
+            <tr><td><code>\cup</code></td><td><span class="math-symbol">∪</span></td><td>和集合</td></tr>
+        </tbody>
+    </table>
+
+    <p style="text-align: right; margin-top: 50px;"><a href="#top">▲ ページトップへ</a></p>
+
+</body>
+</html>

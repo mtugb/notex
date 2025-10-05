@@ -8,45 +8,38 @@
 </head>
 
 <body>
-    <div class="editor__wrapper">
-        <div>
-            <button onclick="document.execCommand('formatblock', false, 'h1')" title="[shortcutKey] alt + 1">見出し１</button>
-            <button onclick="document.execCommand('formatblock', false, 'h2')" title="[shortcutKey] alt + 2">見出し２</button>
-            <button onclick="document.execCommand('formatblock', false, 'h3')" title="[shortcutKey] alt + 3">見出し３</button>
-            <button onclick="document.execCommand('formatblock', false, 'p')" title="[shortcutKey] alt + 0">本文</button>
+    <div class="topbar">
+        NoTex Online Editor
+        <a href="howto.html" target="_blank" rel="noopener noreferrer">使い方</a>
+    </div>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div id="saves"></div>
         </div>
-        <div contenteditable="true" id="editor">
-            <h1>タイトル</h1>
-            <div>本文</div>
+        <div class="editor__wrapper">
+            <div class="toolbar">
+                <button onclick="document.execCommand('formatblock', false, 'h1')"
+                    title="[shortcutKey] alt + 1">見出し１</button>
+                <button onclick="document.execCommand('formatblock', false, 'h2')"
+                    title="[shortcutKey] alt + 2">見出し２</button>
+                <button onclick="document.execCommand('formatblock', false, 'h3')"
+                    title="[shortcutKey] alt + 3">見出し３</button>
+                <button onclick="document.execCommand('formatblock', false, 'p')"
+                    title="[shortcutKey] alt + 0">本文</button>
+                <button id="saveBtn">SaveNote</button>
+            </div>
+            <div contenteditable="true" id="editor">
+                <h1 id="title">新規ノート</h1>
+                <p>-------------------</p>
+                <p>科目:</p>
+                <p>日付:</p>
+                <p><br></p>
+            </div>
         </div>
     </div>
-
-    <h1>test</h1>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        class="icon icon-tabler icons-tabler-outline icon-tabler-math-integral">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <path d="M7 19a2 2 0 0 0 2 2c2 0 2 -4 3 -9s1 -9 3 -9a2 2 0 0 1 2 2" />
-    </svg>
-    <div class="math-only">x^2+y=z</div>
-    <div class="math-only fraction">
-        <div class="fraction__top">3</div>
-        <div class="fraction__bottom">35&minus;3</div>
-    </div>
-    <!-- <div class="math-only integral">
-        <div class="integral__signal">&#x222B;</div>
-        <div class="integral__range">
-            <span class="integral__range__start">∞</span>
-            <span class="integral__range__end">0</span>
-        </div>
-        <div class="integral__content">
-            3x + 52y
-        </div>
-    </div> -->
 
     <script src="bundle.js"></script>
     <style>
-
 
     </style>
 </body>

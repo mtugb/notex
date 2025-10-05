@@ -6,6 +6,44 @@
   box-sizing: border-box;
 }
 
+.wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.topbar {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar {
+  width: 200px;
+}
+
+.sidebar__btn {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  border-top: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.sidebar__btn.here {
+  background-color: green;
+  color: white;
+}
+
+.sidebar__btn small {
+  display: block;
+  color: #9d9d9d;
+}
+
+.editor__wrapper {
+  flex: 1;
+}
+
 #editor {
   min-height: 100svh;
   width: 100%;
@@ -14,6 +52,24 @@
   font-family: 'STIX Two Math Symbol', serif;
   word-spacing: 10px;
   letter-spacing: 0.1em;
+}
+
+#editor > p {
+  padding-top: 25px;
+}
+
+.toolbar {
+  height: 30px;
+  display: flex;
+  justify-content: end;
+  background-color: gray;
+}
+
+.toolbar button {
+  height: 100%;
+  padding: 0 15px;
+  background-color: white;
+  border: 1px solid #ccc;
 }
 
 .something {
@@ -35,3 +91,32 @@
 
 /* 数学記号を表示したい要素用のクラス */
 .math-only {}
+
+/* src/styles/print.css */
+@page {
+  size: A4;
+  margin: 18mm;
+}
+
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.6;
+  }
+
+  #editor {
+    color: #000;
+  }
+
+  /* エディタの補助UIは非表示 */
+  .toolbar,
+  .debug,
+  [data-dev-only] {
+    display: none !important;
+  }
+
+  /* 数式は行分割で崩れにくく */
+  .math-only {
+    break-inside: avoid;
+  }
+}

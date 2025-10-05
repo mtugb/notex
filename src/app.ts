@@ -1,8 +1,11 @@
 // editor-setup.ts
 import { commands, maxEndsWithLength, type Command } from "./commands";
-import { parseElmMap } from "./lib/elmMapper";
+import { parseElmMap, type ElmMap } from "./lib/elmMapper";
+import { genToken } from "./lib/genToken";
+import { Storage } from "./lib/strage";
 
 const editor = document.getElementById('editor') as HTMLDivElement;
+let currentNoteId = genToken();
 // （使っているなら）残す：document.execCommand('defaultParagraphSeparator', false, 'p')
 
 function findCommandAtEnd(text: string): { cmd: Command; match: RegExpMatchArray | null; lengthToDelete: number } | null {
@@ -136,23 +139,80 @@ editor.onkeydown = (e: KeyboardEvent) => {
     }
 
     if (e.altKey) {
-        switch(e.key) {
-            case "0":{
+        switch (e.key) {
+            case "0": {
                 document.execCommand('formatblock', false, 'p')
                 break;
             }
-            case "1":{
+            case "1": {
                 document.execCommand('formatblock', false, 'h1')
                 break;
             }
-            case "2":{
+            case "2": {
                 document.execCommand('formatblock', false, 'h2')
                 break;
             }
-            case "3":{
+            case "3": {
                 document.execCommand('formatblock', false, 'h3')
                 break;
             }
         }
     }
 };
+
+
+const savesListArea = document.getElementById('saves');
+function loadNotes() {
+    if (savesListArea) {
+        const saves = Storage.list();
+        console.log({currentNoteId , id:saves.map(s=>s.id)})
+        const savesElmMap: ElmMap = saves.map(save => ({
+            tagName: 'div',
+            attributes: {
+                'onclick': 'loadNote("' + save.id + '")'
+            },
+            textContent: `${save.title}`,
+            class: (currentNoteId === save.id ? 'here' : '') + ' sidebar__btn',
+            children: [
+                {
+                    tagName: 'small',
+                    textContent: save.updatedAt
+                }
+            ]
+        }))
+        const savesElms = parseElmMap(savesElmMap);
+        savesListArea.innerHTML = '';
+        for (const savedElm of savesElms) {
+            savesListArea.appendChild(savedElm);
+        }
+    }
+}
+
+loadNotes();
+
+function saveNote() {
+    Storage.save({
+        id: currentNoteId,
+        html: editor.innerHTML,
+        title: document.getElementById('title')?.textContent ?? '',
+        updatedAt: new Date().toISOString(),
+        version: 0
+    })
+    alert('ノートを保存しました')
+    loadNotes();
+}
+const saveBtn = document.getElementById('saveBtn');
+if (saveBtn) saveBtn.onclick = saveNote;
+
+// @ts-ignore
+window.loadNote = function(id:string) {
+    const data = Storage.load(id);
+    if (data) {
+        currentNoteId = data.id;
+        editor.innerHTML = data.html;
+        alert(`ノート「${data.title}」を読み込みました`)
+        loadNotes();
+    }else {
+        alert('読み込みエラー')
+    }
+}
