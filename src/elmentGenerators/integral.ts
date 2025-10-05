@@ -15,19 +15,19 @@ export function createIntegralElement():HTMLDivElement {
     rangeDiv.className = 'integral__range';
 
     // 3a. 範囲上限 span.integral__range__start を作成
-    const startSpan = document.createElement('span');
-    startSpan.className = 'integral__range__start';
-    startSpan.textContent = '□'; // '∞' を設定
+    const startSpan = document.createElement('div');
+    startSpan.className = 'integral__range__start blank';
+    // startSpan.textContent = '□'; // '∞' を設定
 
     // 3b. 範囲下限 span.integral__range__end を作成
-    const endSpan = document.createElement('span');
-    endSpan.className = 'integral__range__end';
-    endSpan.textContent = '□'; // '0' を設定
+    const endSpan = document.createElement('div');
+    endSpan.className = 'integral__range__end blank';
+    // endSpan.textContent = '□'; // '0' を設定
 
     // 4. 被積分関数 div.integral__content を作成
     const contentDiv = document.createElement('div');
-    contentDiv.className = 'integral__content';
-    contentDiv.textContent = '□'; // '3x + 52y' を設定
+    contentDiv.className = 'integral__content blank';
+    // contentDiv.textContent = '□'; // '3x + 52y' を設定
 
     // 5. 要素を階層的に組み立てる
     rangeDiv.appendChild(startSpan);

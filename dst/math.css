@@ -1,18 +1,181 @@
+/* blank */
+.blank {
+    display: inline-block;
+    min-width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.blank:empty {
+    border: 1px solid #ccc;
+}
+
+/* integral */
+.integral {
+    display: inline-flex;
+    align-items: center;
+    height: 100px;
+    padding-right: 20px;
+    vertical-align: middle;
+}
+
+.integral__signal {
+    font-size: 3em;
+}
+
+.integral__range {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 60%;
+    transform: translateX(-10px);
+}
+
+/* sigma */
+
+
+/* fraction */
+.fraction {
+    display: inline-flex;
+    /* 文章の流れを崩さず、中身に合わせて幅を調整 */
+    flex-direction: column;
+    align-items: center;
+    /* 中央揃え */
+    vertical-align: middle;
+    /* 行の高さの中央に配置 */
+    font-size: 80%;
+    /* 周りのテキストより少し小さくするのも効果的 */
+    transform: translateY(-1px);
+    padding: 0 2px;
+}
+
+/* 分子: 下線（分数の横棒）を追加 */
+.fraction__top {
+    border-bottom: 1px solid currentColor;
+    padding: 2px 10px;
+    /* 線と数字の間に少し隙間を作る */
+    line-height: 1;
+    /* 行の高さを詰める */
+}
+
+/* 分母: 上部に少し余白を作る */
+.fraction__bottom {
+    padding: 2px 10px;
+    line-height: 1;
+    /* 行の高さを詰める */
+}
+
+/* sigma */
+/* 既存の .integral 定義 ... */
  .integral {
-            display: inline-flex;
-            align-items: center;
-            height: 100px;
-            /* width: 200px; */
-            outline: 1px solid #ccc;
-            padding-right: 20px;
-        }
-        .integral__signal {
-            font-size: 3em;
-        }
-        .integral__range {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 60%;
-            transform: translateX(-10px);
-        }
+    /* ... 既存の定義 ... */
+ }
+ /* ... */
+
+/* 🚀 シグマの基本レイアウト */
+.sigma {
+    display: inline-flex;
+    align-items: center; /* 記号と内容を中央揃え */
+    height: 100px; /* 記号の大きさに合わせて高さを設定 */
+    outline: 1px solid #ccc;
+    padding-right: 20px;
+    vertical-align: middle; /* 行の中央に配置 */
+}
+
+/* シグマ記号自体 */
+.sigma__signal {
+    font-size: 3em; /* 記号を大きく表示 */
+    line-height: 1;
+}
+
+/* 範囲 (上限・下限) コンテナ */
+.sigma__range {
+    display: flex;
+    flex-direction: column; /* 上限と下限を縦に配置 */
+    justify-content: space-between; /* 上下限を最大限離す */
+    height: 60%; /* シグマ記号の高さに合わせて調整 */
+    transform: translateX(-10px); /* 記号に重ねるように少し左に移動 */
+}
+
+/* 被総和関数 */
+.sigma__content {
+    /* 調整が必要であれば追加 */
+}
+
+/* sqrt */
+.sqrt {
+  display: inline-flex;
+  align-items: stretch;
+  vertical-align: middle;
+  transform: translateY(-2px);
+}
+.sqrt__symbol {
+  line-height: 1;
+  font-size: 1.3em; /* 少しだけ大きく */
+  padding-top: 2px;
+}
+/* 根号バーは content にボーダーで引く */
+.sqrt__content {
+  border-top: 2px solid #000;
+  padding: 2px;
+  margin-left: -6px;
+}
+/* n乗根の n を根号の肩に小さく配置（使わないならDOMごと省略でOK） */
+.sqrt__index {
+  font-size: .6em;
+  align-self: flex-start;
+  transform: translate(15px, -10%);
+  margin-right: .05em;
+  width: 10px;
+  height: 10px;
+}
+
+
+/* matrix */
+.matrix {
+    display: inline-flex; /* 括弧とグリッドを横に並べる */
+    align-items: stretch; /* 子要素の高さを行列に合わせて揃える */
+    vertical-align: middle; /* 行の中央に配置 */
+    /* 外側の余白 */
+    margin: 0 4px;
+}
+
+/* 行列のグリッドコンテナ */
+.matrix__grid {
+    display: grid;
+    /* 2x2行列を想定。セルの内容に合わせて幅を調整 (minmax) */
+    grid-template-columns: repeat(2, minmax(30px, auto));
+    grid-gap: 8px 12px; /* 縦方向 8px, 横方向 12px の間隔 */
+    padding: 4px 8px; /* 括弧との間に少しスペースを設ける */
+}
+
+/* 行列の各セル */
+.matrix__cell {
+    min-width: 30px; /* セルの最小幅 */
+    text-align: center;
+    line-height: 1.2;
+    /* 編集可能要素の境界線を非表示にする */
+    outline: none; 
+}
+
+/* 括弧（左右）のスタイル */
+.matrix__bracket {
+    font-family: serif; /* 適切なフォントで表示 */
+    font-size: 3em; /* 行列の高さに合わせて大きくする */
+    line-height: 1;
+    display: flex; /* 垂直方向の中央揃えを可能にする */
+    align-items: center; 
+    justify-content: center;
+    padding: 0 2px;
+}
+
+/* 左括弧は左寄せ、右括弧は右寄せを調整 */
+.matrix__bracket--left {
+    padding-right: 0;
+    transform: translateX(2px);
+}
+
+.matrix__bracket--right {
+    padding-left: 0;
+    transform: translateX(-2px);
+}

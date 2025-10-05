@@ -1,14 +1,23 @@
 @import url(math.css);
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #editor {
- height: 200px;
- width: 400px; 
- background-color: rgb(228, 228, 228);
- padding: 20px;
+  min-height: 100svh;
+  width: 100%;
+  background-color: rgb(228, 228, 228);
+  padding: 20px;
+  font-family: 'STIX Two Math Symbol', serif;
+  word-spacing: 10px;
+  letter-spacing: 0.1em;
 }
 
 .something {
-  color:red
+  color: red
 }
 
 @font-face {
@@ -18,13 +27,11 @@
   src: url('/fonts/STIXTwoText-Regular.woff2') format('woff2');
   /* 必要に応じて他のフォント形式も追加 */
   /* src: url('/fonts/STIXTwoMath-Regular.woff') format('woff'); */
-  
+
   /* ウェイトとスタイルは通常の値でOK */
   font-weight: normal;
   font-style: normal;
 }
 
 /* 数学記号を表示したい要素用のクラス */
-.math-only {
-  font-family: 'STIX Two Math Symbol', serif;
-}
+.math-only {}
